@@ -1,5 +1,8 @@
 📖 Project Description
 
+Project Demo : 
+https://drive.google.com/file/d/1l9LBszHUsmS_5WsYxKohOrgV0QSzjQtA/view?usp=sharing
+
 Event-Hub is a modern and interactive event management web application built using React 19 + Vite.
 
 It allows users to create, manage, and register for events with a clean, responsive UI and immersive 3D design elements powered by Three.js.
