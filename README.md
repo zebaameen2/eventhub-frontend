@@ -137,4 +137,20 @@ https://eventhub-backend-3yf6.onrender.com
 ------------------------------------------------------
 
 📸 Screenshots
+Path of attached screenshots: Event-hub/Frontend/screenshots
+
+![Landing page](screenshots/landingpage.png)
+
+![Sighnup page](screenshots/Signup.png)
+
+![Dashboard ](screenshots/Dashboard.png)
+
+
+![create event](screenshots/Create.png)
+
+![Register event](image.png)
+
+
+
+
 
