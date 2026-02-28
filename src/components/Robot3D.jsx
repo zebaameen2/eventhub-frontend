@@ -33,7 +33,7 @@ function Robot() {
 
     // intro move forward
     if (!introDone.current) {
-      scene.position.z += delta * 3;
+      scene.position.z += delta * 6;
       if (scene.position.z >= 0) {
         scene.position.z = 0;
         introDone.current = true;

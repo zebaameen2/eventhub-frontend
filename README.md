@@ -1,16 +1,140 @@
-# React + Vite
+📖 Project Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Event-Hub is a modern and interactive event management web application built using React 19 + Vite.
 
-Currently, two official plugins are available:
+It allows users to create, manage, and register for events with a clean, responsive UI and immersive 3D design elements powered by Three.js.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project focuses on performance, scalability, and user experience
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+✨ -------Features--------
 
-## Expanding the ESLint configuration
+🔐 Secure Login & Signup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📅 Create Events
+
+✏️ Edit Events
+
+🗑 Delete Events
+
+📋 Event Registration System
+
+📊 Download Registration Data (CSV)
+
+🌌 3D Interactive Header (Three.js)
+
+🎨 Fully Responsive Dashboard
+
+🔔 Alerts using SweetAlert
+
+⚡ Fast Development & Build with Vite
+
+-------------------------------------------
+
+🛠 Tech Stack Used
+🎯 Frontend Core
+
+React 19
+
+Vite
+
+🎨 Styling & UI
+
+Tailwind CSS
+
+Headless UI
+
+Heroicons
+
+React Icons
+
+🔀 Routing
+
+React Router DOM
+
+ 🔗 Backend Integration :--
+
+Supabase JS
+
+🌌 3D & Animations:---
+
+Three.js
+
+@react-three/fiber
+
+@react-three/drei
+
+Lottie React
+
+🛠 Utilities:--
+
+React CSV Downloader
+
+React Markdown + Remark GFM
+
+SweetAlert
+
+-------------------------------------------------------
+
+📂 Folder Structure
+
+src/
+├── components/
+├── pages/
+├── context/
+├── assets/
+├── App.jsx
+└── main.jsx
+
+--------------------------------------------------------------
+
+
+⚙️ Installation Steps
+1️⃣ Clone the Repository
+
+git clone https://github.com/zebaameen2/eventhub-frontend.git
+
+cd event-hub-frontend
+
+2️⃣ Install Dependencies
+
+npm install
+
+3️⃣ Setup Environment Variables
+
+Create a .env file in the root folder and add:
+
+VITE_SUPABASE_URL=https://ywcwxjcqmobtqfmvixvu.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3Y3d4amNxbW9idHFmbXZpeHZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwMDc2OTQsImV4cCI6MjA4NzU4MzY5NH0.kbZxTbHa8iIeiWqq1g_f2DxyNnDXkzKW610xoei6F3I
+
+4️⃣ Run Development Server
+
+npm run dev
+
+App will run on:
+http://localhost:5173
+
+5️⃣ Build for Production
+
+npm run build
+
+
+-------------------------------------------------
+
+🌍 Deployment Link
+
+Frontend Live URL:
+https://event-hub-frontend.netlify.app/
+
+
+------------------------------------------------------
+
+🔗 Backend API Link
+
+Backend API Base URL:
+https://eventhub-backend-3yf6.onrender.com
+
+------------------------------------------------------
+
+📸 Screenshots
+

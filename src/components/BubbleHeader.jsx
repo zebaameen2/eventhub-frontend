@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 const MOVE_INTERVAL_MS = 30;
-const RISE_SPEED_PX = 1.2; // smooth bubble speed
+const RISE_SPEED_PX = 3; // smooth bubble speed
 const MIN_X_MARGIN = 60;
 const MIN_DISTANCE_BETWEEN = 130;
 const BUBBLE_SIZE = 34;

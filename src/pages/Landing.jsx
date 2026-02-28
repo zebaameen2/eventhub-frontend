@@ -21,16 +21,7 @@ const Landing = () => {
         <Robot3D />
       </div>
 
-      {/* fixed profile button (won't affect landing layout) */}
-      {/* <div className="fixed top-4 right-4 z-40 hidden md:block">
-        <button
-          onClick={() => window.location.assign('/profile')}
-          className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
-        >
-          My Profile
-        </button>
-      </div> */}
-
+     
       {/* Explore Button */}
       {!explode && (
         <button
