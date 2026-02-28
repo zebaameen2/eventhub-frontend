@@ -154,6 +154,13 @@ Path of attached screenshots: Event-hub/Frontend/screenshots
 ![Register event](image.png)
 
 
+-----------------------------------------------------
+👩‍💻 Author
+
+Zeba
+Backend Developer – Event-Hub
+
+
 
 
 
