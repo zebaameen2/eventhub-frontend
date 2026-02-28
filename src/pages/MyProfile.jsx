@@ -11,7 +11,7 @@ export default function MyProfile() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/users/me", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`, // 🔒 send JWT token
           },

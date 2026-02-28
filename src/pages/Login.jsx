@@ -38,7 +38,7 @@ const Login = () => {
 
     
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -83,14 +83,14 @@ const Login = () => {
 
   return (
     <div className="md:ml-64 ml-0">
-      <div className="fixed top-4 right-4 z-40 hidden md:block">
+      {/* <div className="fixed top-4 right-4 z-40 hidden md:block">
         <button
           onClick={() => window.location.assign('/profile')}
           className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
         >
           My Profile
         </button>
-      </div>
+      </div> */}
 
       <div
         className="min-h-screen flex items-center justify-center"

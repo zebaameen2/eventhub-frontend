@@ -1,53 +1,4 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import ParticleExplosion from "../components/ParticleExplosion.jsx";
 
-// import Robot3D from "../components/Robot3D.jsx";
-
-// import Header from "../components/Header.jsx";
-
-// const Landing = () => {
-//   const navigate = useNavigate();
-//   const [explode, setExplode] = useState(false);
-//   const [showAuth, setShowAuth] = useState(false);
-
-//   return (
-//     <div className="w-full h-screen bg-black overflow-hidden relative">
-//       {/* 3D Robot Background */}
-//       <div className="absolute inset-0 z-10">
-//         <Robot3D />
-//       </div>
-
-//       {/* Explore Button */}
-//       {!explode && (
-//         <button
-//           onClick={() => setExplode(true)}
-//           className="absolute bottom-[200px] left-1/2 -translate-x-1/2 px-10 py-4 text-xl bg-purple-600 text-white rounded-full z-20"
-//         >
-//           Want to Create Your Event?
-//         </button>
-//       )}
-
-//       {/* Explosion */}
-//       {explode && (
-//         <ParticleExplosion
-//           isActive={explode}
-//           onComplete={() => setShowAuth(true)}
-//         />
-//       )}
-
-//       {/*  FLOATING LOGIN / SIGNUP BUBBLES */}
-//       {showAuth && (
-//         <Header
-//           onLogin={() => navigate("/login")}
-//           onSignup={() => navigate("/signup")}
-//         />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Landing;
           
 
 
@@ -71,14 +22,14 @@ const Landing = () => {
       </div>
 
       {/* fixed profile button (won't affect landing layout) */}
-      <div className="fixed top-4 right-4 z-40 hidden md:block">
+      {/* <div className="fixed top-4 right-4 z-40 hidden md:block">
         <button
           onClick={() => window.location.assign('/profile')}
           className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
         >
           My Profile
         </button>
-      </div>
+      </div> */}
 
       {/* Explore Button */}
       {!explode && (

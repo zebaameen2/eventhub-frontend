@@ -29,7 +29,7 @@ export default function ProtectedRoute({ children }) {
     }
 
     // verify token with backend
-    fetch("http://localhost:5000/api/verify", {
+    fetch(`${import.meta.env.VITE_BASE_URL}/api/verify`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => setValid(res.ok))

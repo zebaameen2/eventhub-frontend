@@ -15,7 +15,7 @@ export default function DashboardBody() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/api/users", {
+    fetch(`${import.meta.env.VITE_BASE_URL}/api/users`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -70,7 +70,7 @@ return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
           {[
             { value: "2.7K", label: "Downloads" },
-            { value: users.length, label: "Users" },
+            { value: users.length ? users.length : '-', label: "Users" },
             { value: "74", label: "Files" },
             { value: "46", label: "Places" },
           ].map((stat, i) => (

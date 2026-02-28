@@ -9,7 +9,7 @@ import Dashboard from "./Dashboard";
 const CreateEventPage = () => {
   const navigate = useNavigate();
 
- 
+
 
   // ✅ GET USER FROM LOCAL STORAGE
   const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
@@ -74,100 +74,56 @@ const CreateEventPage = () => {
     }
   };
 
- 
-  //   e.preventDefault();
-
-  //   // ✅ Safety check
-  //   if (!user?.id) {
-  //     alert("User not logged in");
-  //     return;
-  //   }
-
-  //   const formDataToSend = new FormData();
-
-  //   Object.keys(eventData).forEach((key) =>
-  //     formDataToSend.append(key, eventData[key])
-  //   );
-
-  //   formDataToSend.append("sponsors", JSON.stringify(sponsors));
-  //   formDataToSend.append("approval", approval);
-
-  //   console.log("USER FROM LOCALSTORAGE:", user);
-  //   console.log("USER ID:", user?.id);
-  //   formDataToSend.append("created_by", user.id); // ✅ NOW SAFE
-
-  //   if (bannerFile) formDataToSend.append("banner", bannerFile);
-  //   if (cardFile) formDataToSend.append("card", cardFile);
-
-  //   try {
-  //     const res = await fetch("http://localhost:5000/api/events", {
-  //       method: "POST",
-  //       body: formDataToSend,
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (data.success) {
-  //       alert("Event created successfully 🎉");
-  //       navigate("/events");
-  //     } else {
-  //       alert(data.error || "Something went wrong");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert("Server error");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // ✅ Safety check
-  if (!user?.id) {
-    alert("User not logged in");
-    return;
-  }
-
-  const formDataToSend = new FormData();
-
-  Object.keys(eventData).forEach((key) =>
-    formDataToSend.append(key, eventData[key])
-  );
-
-  formDataToSend.append("sponsors", JSON.stringify(sponsors));
-  formDataToSend.append("approval", approval);
-
-  console.log("USER FROM LOCALSTORAGE:", user);
-  console.log("USER ID:", user?.id);
-  formDataToSend.append("created_by", user.id);
-
-  if (bannerFile) formDataToSend.append("banner", bannerFile);
-  if (cardFile) formDataToSend.append("card", cardFile);
-
-  try {
-    const token = localStorage.getItem("token"); // 🔒 get token
-
-    const res = await fetch("http://localhost:5000/api/events", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`, // 🔒 send token
-      },
-      body: formDataToSend,
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      alert("Event created successfully 🎉");
-      navigate("/events");
-    } else {
-      alert(data.error || "Something went wrong");
+    // ✅ Safety check
+    if (!user?.id) {
+      alert("User not logged in");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-};
+
+    const formDataToSend = new FormData();
+
+    Object.keys(eventData).forEach((key) =>
+      formDataToSend.append(key, eventData[key])
+    );
+
+    formDataToSend.append("sponsors", JSON.stringify(sponsors));
+    formDataToSend.append("approval", approval);
+
+    console.log("USER FROM LOCALSTORAGE:", user);
+    console.log("USER ID:", user?.id);
+    formDataToSend.append("created_by", user.id);
+
+    if (bannerFile) formDataToSend.append("banner", bannerFile);
+    if (cardFile) formDataToSend.append("card", cardFile);
+
+    try {
+      const token = localStorage.getItem("token"); // 🔒 get token
+
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/events`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // 🔒 send token
+        },
+        body: formDataToSend,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Event created successfully 🎉");
+        navigate("/events");
+      } else {
+        alert(data.error || "Something went wrong");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Server error");
+    }
+  };
 
 
   return (
@@ -203,7 +159,7 @@ const CreateEventPage = () => {
 
           <input type="text" name="state" placeholder="State" value={eventData.state} onChange={handleChange} className="border p-2 w-full rounded" />
 
-             <input type="text" name="auidience" placeholder="audience type" value={eventData.audience} onChange={handleChange} className="border p-2 w-full rounded" />
+          <input type="text" name="audience" placeholder="audience type" value={eventData.audience} onChange={handleChange} className="border p-2 w-full rounded" />
 
           <input type="number" name="price" placeholder="Ticket Price" value={eventData.price} onChange={handleChange} className="border p-2 w-full rounded" /> {/* Banner Image */} <div> <label className="font-semibold">Banner Image</label>
 

@@ -36,7 +36,7 @@ export default function EventDetails() {
       setLoader(true);
       try {
         console.log("fetching event", eventId);
-        const res = await fetch(`http://localhost:5000/api/events/${eventId}`);
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/events/${eventId}`);
         const data = await res.json();
 
         if (res.ok) {
@@ -69,7 +69,7 @@ export default function EventDetails() {
       const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
       if (!userInfo?.id) return;
 
-      const res = await fetch(`http://localhost:5000/api/events/${eventId}/registrations`);
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/events/${eventId}/registrations`);
       const data = await res.json();
 
       if (res.ok && data.registrations) {
@@ -98,7 +98,7 @@ export default function EventDetails() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/events/${eventId}/register`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/events/${eventId}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userInfo.id }),
