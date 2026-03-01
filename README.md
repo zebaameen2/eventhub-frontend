@@ -127,7 +127,8 @@ npm run build
 🌍 Deployment Link
 
 Frontend Live URL:
-https://event-hub-frontend.netlify.app/
+
+eventhub-frontend-v2-ocsg2ca7u-zeba-ameens-projects.vercel.app
 
 
 ------------------------------------------------------
