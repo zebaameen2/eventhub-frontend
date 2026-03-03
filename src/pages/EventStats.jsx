@@ -16,6 +16,9 @@ export default function EventStats() {
   const [docs, setDocs] = useState([]);
   const [eventData, setEventData] = useState(null);
 
+  // Loading: which registration is being accepted/rejected (regId or null)
+  const [pendingAction, setPendingAction] = useState(null); // e.g. 'accept:regId' or 'reject:regId'
+
   // short-lived toast message
   const [toast, setToast] = useState(null);
   const showToast = (msg, ms = 2500) => {
@@ -90,42 +93,88 @@ export default function EventStats() {
   }, [eventId]);
 
   // ✅ Accept attendee
-  const handleAcceptanceEmail = async (id, name, email) => {
+  const handleAcceptanceEmail = async (regId, name, email, eventName) => {
     const token = localStorage.getItem("token");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    console.log("[Accept] clicked", { regId, baseUrl, hasToken: !!token });
+
+    if (!token) {
+      showToast("Please log in again");
+      return;
+    }
+    setPendingAction(`accept:${regId}`);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/registrations/${id}/accept`, {
+      const url = `${baseUrl}/api/registrations/${regId}/accept`;
+      console.log("[Accept] fetching", url);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+      const res = await fetch(url, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
+      const text = await res.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (_) {
+        console.warn("[Accept] response not JSON", text?.slice(0, 200));
+      }
+      console.log("[Accept] response", { status: res.status, ok: res.ok, data, textPreview: text?.slice(0, 150) });
 
       if (!res.ok) {
-        showToast(`Error accepting registration: ${res.statusText}`);
+        const msg = res.status === 401 ? "Please log in again" : (data?.error || data?.message || res.statusText);
+        showToast(`Error: ${msg}`);
         return;
       }
 
-      // Optimistically update local UI to show accepted immediately
-      setDocs((d) => d.map((r) => (r.id === id ? { ...r, confirm: "accept" } : r)));
-      // also refresh registrations in background
-      fetchRegistrations();
+      const idStr = String(regId);
+      setDocs((d) => d.map((r) => (String(r.id) === idStr ? { ...r, confirm: "accept" } : r)));
       showToast(`Accepted — email sent to ${email}`);
+      console.log("[Accept] UI updated for regId", regId);
+
+      const subject = `Accepted for ${eventName || "your event"}`;
+      const message = `Hello ${name},\n\nYou have been accepted for ${eventName || "the event"}.\n\nSee you there!`;
+      callAPI(email, subject, message);
     } catch (err) {
-      console.error("Network error accepting registration", err);
-      showToast("Could not communicate with server");
+      if (err.name === "AbortError") {
+        console.warn("[Accept] request timed out (server may be waking up)");
+        showToast("Server is waking up. Wait 30 seconds and try again.");
+      } else {
+        console.error("[Accept] error", err);
+        showToast("Could not communicate with server");
+      }
+    } finally {
+      setPendingAction(null);
     }
   };
 
-  // 📦 Delete registration
-  const handleDeleteRegistration = async (id) => {
+  // 📦 Delete registration (trash icon)
+  const handleDeleteRegistration = async (regId) => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      showToast("Please log in again");
+      return;
+    }
     try {
-      await fetch(`${import.meta.env.VITE_BASE_URL}/api/registrations/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/registrations/${regId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      setDocs((d) => d.filter((r) => r.id !== id));
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showToast(data?.error || data?.message || `Error: ${res.statusText}`);
+        return;
+      }
+      const idStr = String(regId);
+      setDocs((d) => d.filter((r) => String(r.id) !== idStr));
       showToast("Registration removed");
     } catch (err) {
       console.error("Network error deleting registration", err);
@@ -133,47 +182,86 @@ export default function EventStats() {
     }
   };
 
-  // ✅ Reject attendee
-  const handleRejectionEmail = async (id, name, email) => {
+  // ✅ Reject attendee (backend deletes the registration; frontend removes row)
+  const handleRejectionEmail = async (regId, name, email, eventName) => {
     const token = localStorage.getItem("token");
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    console.log("[Reject] clicked", { regId, baseUrl, hasToken: !!token });
+
+    if (!token) {
+      showToast("Please log in again");
+      return;
+    }
+    setPendingAction(`reject:${regId}`);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/registrations/${id}/reject`, {
+      const url = `${baseUrl}/api/registrations/${regId}/reject`;
+      console.log("[Reject] fetching", url);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+      const res = await fetch(url, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
+      const text = await res.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (_) {
+        console.warn("[Reject] response not JSON", text?.slice(0, 200));
+      }
+      console.log("[Reject] response", { status: res.status, ok: res.ok, data, textPreview: text?.slice(0, 150) });
 
       if (!res.ok) {
-        showToast(`Error rejecting registration: ${res.statusText}`);
+        const msg = res.status === 401 ? "Please log in again" : (data?.error || data?.message || res.statusText);
+        showToast(`Error: ${msg}`);
         return;
       }
 
-      // remove row immediately and show toast
-      setDocs((d) => d.filter((r) => r.id !== id));
+      const idStr = String(regId);
+      setDocs((d) => d.filter((r) => String(r.id) !== idStr));
       showToast(`Rejected — email sent to ${email}`);
+      console.log("[Reject] row removed for regId", regId);
+
+      const subject = `Update on ${eventName || "your event"}`;
+      const message = `Hello ${name},\n\nUnfortunately your registration for ${eventName || "the event"} was not accepted.\n\nThank you for your interest.`;
+      callAPI(email, subject, message);
     } catch (err) {
-      console.error("Network error rejecting registration", err);
-      showToast("Could not communicate with server");
+      if (err.name === "AbortError") {
+        console.warn("[Reject] request timed out (server may be waking up)");
+        showToast("Server is waking up. Wait 30 seconds and try again.");
+      } else {
+        console.error("[Reject] error", err);
+        showToast("Could not communicate with server");
+      }
+    } finally {
+      setPendingAction(null);
     }
   };
 
 
   return (
     <>
-      <Header eventId={eventId} />
+      <Header eventId={eventId} showViewStats={true} />
       <div className="fixed top-4 right-4 z-40 hidden md:block">
         <button
           onClick={() => window.location.assign('/profile')}
-          className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
+          className="bg-[#f02e65] hover:bg-[#d91e52] text-white px-4 py-2 rounded-xl font-medium shadow-sm transition"
         >
           My Profile
         </button>
       </div>
       <div className="md:ml-64 ml-0 pt-16">
+      {/* Toast: center-top, high z-index so it's always visible */}
       {toast && (
-        <div className="fixed top-4 right-4 bg-black text-white px-4 py-2 rounded shadow z-50">
+        <div className="fixed left-1/2 top-20 -translate-x-1/2 z-[100] bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg text-center min-w-[280px] max-w-[90vw]">
           {toast}
         </div>
       )}
@@ -182,7 +270,7 @@ export default function EventStats() {
         <h1 className="text-3xl font-bold mb-8 text-center">Event Attendees</h1>
 
         <div className="overflow-x-auto">
-          <table className="w-full bg-white shadow rounded-xl">
+          <table className="w-full bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
                 <th className="p-3 text-left">Name</th>
@@ -205,29 +293,33 @@ export default function EventStats() {
                     ) : (
                       <>
                         <button
-                          className="bg-green-500 text-white px-4 py-1 rounded"
+                          className="bg-emerald-600 text-white px-3 py-1.5 rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
+                          disabled={!!pendingAction}
                           onClick={() =>
                             handleAcceptanceEmail(
                               attendee.id,
                               `${attendee.users?.firstname || ""} ${attendee.users?.lastname || ""}`.trim(),
-                              attendee.users?.email
+                              attendee.users?.email,
+                              eventData?.eventname
                             )
                           }
                         >
-                          Accept
+                          {pendingAction === `accept:${attendee.id}` ? "Accepting…" : "Accept"}
                         </button>
 
                         <button
-                          className="bg-red-500 text-white px-4 py-1 rounded"
+                          className="bg-red-600 text-white px-3 py-1.5 rounded-xl text-sm font-medium hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
+                          disabled={!!pendingAction}
                           onClick={() =>
                             handleRejectionEmail(
                               attendee.id,
                               `${attendee.users?.firstname || ""} ${attendee.users?.lastname || ""}`.trim(),
-                              attendee.users?.email
+                              attendee.users?.email,
+                              eventData?.eventname
                             )
                           }
                         >
-                          Reject
+                          {pendingAction === `reject:${attendee.id}` ? "Rejecting…" : "Reject"}
                         </button>
                       </>
                     )}

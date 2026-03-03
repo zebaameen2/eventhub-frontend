@@ -209,26 +209,19 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center"
-      style={{ background: "linear-gradient(135deg, #667eea, #764ba2)" }}
-    >
-      <div className="relative z-10 w-full max-w-md px-6">
-        <div className="card backdrop-blur-xl border border-white/20 shadow-2xl p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-purple-500/40">
-          <h1 className="text-4xl font-extrabold text-white mb-4 animate-fadeIn">
-            Welcome Back
-          </h1>
-          <p className="text-gray-200 mb-6 animate-fadeIn delay-200">
-            Demo: demo@example.com / demo123
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h1>
+          <p className="text-gray-500 text-sm mb-6">Sign in to your account</p>
 
-          <form onSubmit={handleSubmit} className="space-y-6 animate-fadeIn delay-300">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <input
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="Email"
-              className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none transition"
             />
 
             <input
@@ -237,7 +230,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Password"
-              className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none transition"
             />
 
             {error && <div className="text-red-400 text-sm">{error}</div>}
@@ -245,17 +238,17 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 rounded-lg bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-700 hover:shadow-purple-500/50 transition transform hover:scale-105"
+              className="w-full py-3 rounded-xl bg-[#f02e65] hover:bg-[#d91e52] text-white font-medium transition disabled:opacity-60"
             >
-              {isLoading ? "Logging in..." : "Login"}
+              {isLoading ? "Signing in..." : "Sign in"}
             </button>
           </form>
 
-          <p className="mt-6 text-sm text-center text-gray-200 animate-fadeIn delay-500">
+          <p className="mt-6 text-sm text-center text-gray-500">
             Don’t have an account?{" "}
             <button
               onClick={() => navigate("/signup")}
-              className="text-white font-bold underline hover:text-purple-300 transition"
+              className="text-[#f02e65] font-medium hover:underline"
             >
               Sign up
             </button>

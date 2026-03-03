@@ -132,53 +132,62 @@ const CreateEventPage = () => {
       <div className="fixed top-4 right-4 z-40 hidden md:block">
         <button
           onClick={() => navigate("/profile")}
-          className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
+          className="bg-[#f02e65] hover:bg-[#d91e52] text-white px-4 py-2 rounded-xl font-medium shadow-sm transition"
         >
           My Profile
         </button>
       </div>
-      <div className="md:ml-64 ml-0 pt-20 p-6 md:p-10 bg-gray-50 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6">Create Event</h1>
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
-          {/* Event Fields */}
-
-          <input type="text" name="eventname" placeholder="Event Name" value={eventData.eventname} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <textarea name="description" placeholder="Description" value={eventData.description} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="text" name="hostname" placeholder="Host Name" value={eventData.hostname} onChange={handleChange} className="border p-2 w-full rounded" />
-          <select name="type" value={eventData.type} onChange={handleChange} className="border p-2 w-full rounded" > <option value="">Select Event Type</option>
-            <option value="In-Person">In-Person</option>
-            <option value="Online">Online (Meet)</option>
-
-          </select> <input type="date" name="eventdate" value={eventData.eventdate} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="email" name="email" placeholder="Contact Email" value={eventData.email} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="text" name="city" placeholder="City" value={eventData.city} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="text" name="state" placeholder="State" value={eventData.state} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="text" name="audience" placeholder="audience type" value={eventData.audience} onChange={handleChange} className="border p-2 w-full rounded" />
-
-          <input type="number" name="price" placeholder="Ticket Price" value={eventData.price} onChange={handleChange} className="border p-2 w-full rounded" /> {/* Banner Image */} <div> <label className="font-semibold">Banner Image</label>
-
-            <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "banner")} className="border p-2 w-full rounded" /> {bannerPreview && (<img src={bannerPreview} alt="Banner Preview" className="mt-2 w-full h-48 object-cover rounded" />)} </div> {/* Card Image */} <div> <label className="font-semibold">Card Image</label>
-
-            <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "card")} className="border p-2 w-full rounded" /> {cardPreview && (<img src={cardPreview} alt="Card Preview" className="mt-2 w-48 h-28 object-cover rounded" />)} </div>
-
-          {/* Sponsors */}
-          <div> <h2 className="text-xl font-semibold">Sponsors</h2> {sponsors.map((sponsor, index) => (<div key={sponsor.id} className="flex gap-2 mt-2">
-
-            <input type="text" placeholder="Sponsor Name" value={sponsor.name} onChange={(e) => handleSponsorChange(index, "name", e.target.value)} className="border p-2 rounded" />
-
-            <input type="text" placeholder="Sponsor URL" value={sponsor.url} onChange={(e) => handleSponsorChange(index, "url", e.target.value)} className="border p-2 rounded" />
-          </div>))}
-
-            <button type="button" onClick={handleAddSponsor} className="bg-gray-300 px-3 py-1 mt-2 rounded" > Add Sponsor </button>
-
-          </div> {/* Approval */} <div className="flex items-center gap-2">
-            <input type="checkbox" checked={approval} onChange={() => setApproval(!approval)} /> <label>Request Approval</label> </div> <button type="submit" className="bg-black text-white px-5 py-2 rounded" > Create Event </button> </form> </div> </>);
+      <div className="md:ml-64 ml-0 pt-20 p-6 md:p-10 bg-gray-50/80 min-h-screen pb-12">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Event</h1>
+          <p className="text-gray-500 mb-8">Fill in the details below</p>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm space-y-4">
+              <input type="text" name="eventname" placeholder="Event Name" value={eventData.eventname} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" required />
+              <textarea name="description" placeholder="Description" value={eventData.description} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none resize-none" rows={3} />
+              <input type="text" name="hostname" placeholder="Host Name" value={eventData.hostname} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <select name="type" value={eventData.type} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none">
+                <option value="">Select Event Type</option>
+                <option value="In-Person">In-Person</option>
+                <option value="Online">Online</option>
+              </select>
+              <input type="date" name="eventdate" value={eventData.eventdate} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <input type="email" name="email" placeholder="Contact Email" value={eventData.email} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <div className="grid grid-cols-2 gap-4">
+                <input type="text" name="city" placeholder="City" value={eventData.city} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+                <input type="text" name="state" placeholder="State" value={eventData.state} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              </div>
+              <input type="text" name="audience" placeholder="Audience type" value={eventData.audience} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <input type="number" name="price" placeholder="Ticket Price" value={eventData.price} onChange={handleChange} className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+            </div>
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm space-y-4">
+              <label className="block text-sm font-medium text-gray-700">Banner Image</label>
+              <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "banner")} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-gray-100 file:font-medium file:text-gray-700" />
+              {bannerPreview && <img src={bannerPreview} alt="Banner" className="mt-2 w-full h-40 object-cover rounded-xl" />}
+              <label className="block text-sm font-medium text-gray-700 pt-2">Card Image</label>
+              <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "card")} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-gray-100 file:font-medium file:text-gray-700" />
+              {cardPreview && <img src={cardPreview} alt="Card" className="mt-2 w-48 h-28 object-cover rounded-xl" />}
+            </div>
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Sponsors</h2>
+              {sponsors.map((sponsor, index) => (
+                <div key={sponsor.id} className="flex gap-3 mb-3">
+                  <input type="text" placeholder="Sponsor Name" value={sponsor.name} onChange={(e) => handleSponsorChange(index, "name", e.target.value)} className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+                  <input type="text" placeholder="URL" value={sponsor.url} onChange={(e) => handleSponsorChange(index, "url", e.target.value)} className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+                </div>
+              ))}
+              <button type="button" onClick={handleAddSponsor} className="text-[#f02e65] font-medium hover:underline">+ Add Sponsor</button>
+            </div>
+            <div className="flex items-center gap-3">
+              <input type="checkbox" id="approval" checked={approval} onChange={() => setApproval(!approval)} className="rounded border-gray-300 text-[#f02e65] focus:ring-[#f02e65]" />
+              <label htmlFor="approval" className="text-gray-700">Request approval for registrations</label>
+            </div>
+            <button type="submit" className="w-full bg-[#f02e65] hover:bg-[#d91e52] text-white py-3 rounded-xl font-medium shadow-sm transition">
+              Create Event
+            </button>
+          </form>
+        </div>
+      </div> </>);
 };
 
 export default CreateEventPage;

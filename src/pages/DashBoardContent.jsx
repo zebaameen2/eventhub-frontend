@@ -44,68 +44,58 @@ return (
     <div className="fixed top-4 right-4 z-40">
       <button
         onClick={() => navigate("/profile")}
-        className="bg-pink-600 text-white px-4 py-2 rounded-full shadow-md hover:scale-105 transition"
+        className="bg-[#f02e65] hover:bg-[#d91e52] text-white px-4 py-2 rounded-xl font-medium shadow-sm transition"
         aria-label="My Profile"
       >
         My Profile
       </button>
     </div>
 
-    <div className="md:ml-64 ml-0 min-h-screen bg-gradient-to-br from-pink-50/60 to-white backdrop-blur-sm">
-
-      <section className="container px-4 md:px-6 py-12 md:py-16 mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Experience Hassle Free Events 🎉
+    <div className="md:ml-64 ml-0 min-h-screen bg-gray-50/80 pt-20 pb-12">
+      <section className="max-w-5xl mx-auto px-4 md:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Experience hassle-free events
           </h1>
-          <p className="max-w-2xl mx-auto text-gray-600">
-            Welcome to  <span className="text-pink-600">Event-Hub</span> — where organizing unforgettable
-            events becomes smooth, powerful and stress-free.
+          <p className="max-w-xl mx-auto text-gray-500">
+            Welcome to <span className="text-[#f02e65] font-medium">EventHub</span> — organize events smoothly and stress-free.
           </p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {[
             { value: "2.7K", label: "Downloads" },
-            { value: users.length ? users.length : '-', label: "Users" },
+            { value: users.length ?? "-", label: "Users" },
             { value: "74", label: "Files" },
             { value: "46", label: "Places" },
           ].map((stat, i) => (
             <div
               key={i}
-              className="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 text-center hover:scale-105 transition"
+              className="bg-white rounded-2xl border border-gray-100 p-6 text-center shadow-sm hover:shadow-md transition"
             >
-              <h2 className="text-3xl font-bold text-pink-600">
-                {stat.value}
-              </h2>
-              <p className="text-gray-600 mt-2">{stat.label}</p>
+              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+              <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Users Section */}
-        <div className="bg-white/80 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+        <div className="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Registered Users
           </h2>
-
-          <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
+          <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
             {users.map((u) => (
               <div
                 key={u.id}
-                className="flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-pink-50 transition"
+                className="flex justify-between items-center p-3 rounded-xl bg-gray-50/80 hover:bg-gray-50 border border-transparent hover:border-gray-100 transition"
               >
                 <div>
-                  <p className="font-medium">
+                  <p className="font-medium text-gray-900">
                     {u.firstname} {u.lastname}
                   </p>
                   <p className="text-sm text-gray-500">{u.email}</p>
                 </div>
-
-                <span className="text-xs bg-pink-100 text-pink-600 px-3 py-1 rounded-full">
+                <span className="text-xs font-medium text-[#f02e65] bg-[#f02e65]/10 px-2.5 py-1 rounded-lg">
                   Active
                 </span>
               </div>
@@ -113,16 +103,14 @@ return (
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="flex justify-center mt-12 md:mt-20">
+        <div className="flex justify-center mt-10">
           <button
             onClick={() => navigate("/create")}
-            className="bg-gradient-to-r from-pink-600 to-rose-500 text-white px-10 py-4 rounded-full shadow-xl text-lg font-medium hover:scale-110 transition duration-300"
+            className="bg-[#f02e65] hover:bg-[#d91e52] text-white px-8 py-3 rounded-xl font-medium shadow-sm transition"
           >
-            🚀 Create Event
+            Create Event
           </button>
         </div>
-
       </section>
     </div>
   </>

@@ -214,74 +214,30 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center"
-      style={{ background: "linear-gradient(135deg, #667eea, #764ba2)" }}
-    >
-      <div className="relative z-10 w-full max-w-2xl px-6">
-        <div className="card backdrop-blur-xl border border-white/20 shadow-2xl p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-purple-500/40">
-          <h1 className="text-4xl font-extrabold text-white mb-6 animate-fadeIn">
-            Create Account
-          </h1>
-
-          <form onSubmit={handleSubmit} className="grid gap-4 animate-fadeIn delay-200">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Create account</h1>
+          <p className="text-gray-500 text-sm mb-6">Sign up to get started</p>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <input
-                name="firstname"
-                placeholder="First Name"
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-              />
-              <input
-                name="lastname"
-                placeholder="Last Name"
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-              />
+              <input name="firstname" placeholder="First name" value={formData.firstname} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <input name="lastname" placeholder="Last name" value={formData.lastname} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
             </div>
-
-            <input
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-            />
-
+            <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
             <div className="grid grid-cols-2 gap-4">
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-              />
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-              />
+              <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
+              <input type="password" name="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#f02e65]/20 focus:border-[#f02e65] outline-none" />
             </div>
-
-            {error && <div className="text-red-400 text-sm">{error}</div>}
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 rounded-lg bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-700 hover:shadow-purple-500/50 transition transform hover:scale-105"
-            >
-              {isLoading ? "Creating..." : "Sign Up"}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <button type="submit" disabled={isLoading} className="w-full py-3 rounded-xl bg-[#f02e65] hover:bg-[#d91e52] text-white font-medium transition disabled:opacity-60">
+              {isLoading ? "Creating..." : "Sign up"}
             </button>
           </form>
-
-          <p className="mt-6 text-sm text-center text-gray-200 animate-fadeIn delay-500">
+          <p className="mt-6 text-sm text-center text-gray-500">
             Already have an account?{" "}
-            <button
-              onClick={() => navigate("/login")}
-              className="text-white font-bold underline hover:text-purple-300 transition"
-            >
-              Login
+            <button type="button" onClick={() => navigate("/login")} className="text-[#f02e65] font-medium hover:underline">
+              Sign in
             </button>
           </p>
         </div>

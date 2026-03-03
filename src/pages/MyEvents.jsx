@@ -72,67 +72,53 @@ export default function MyEvents() {
   return (
     <>
       <Dashboard />
-      <div className="md:ml-64 ml-0 pt-16 flex h-full justify-center w-full">
-
-        <div className="w-full max-w-6xl px-4 md:px-6">
-          <h1 className="text-3xl font-bold text-center py-8">
-            My Active Events
-          </h1>
+      <div className="md:ml-64 ml-0 pt-20 pb-12">
+        <div className="w-full max-w-4xl mx-auto px-4 md:px-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">My events</h1>
+          <p className="text-gray-500 mb-8">Events you've created</p>
 
           {loader ? (
-            <p className="text-center text-red-600">Loading...</p>
+            <div className="flex justify-center py-20">
+              <div className="w-8 h-8 border-2 border-[#f02e65] border-t-transparent rounded-full animate-spin" />
+            </div>
           ) : events.length === 0 ? (
-            <p className="text-center text-gray-500">
-              No events found 🙂
-            </p>
+            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-gray-500">
+              No events yet. Create one to get started.
+            </div>
           ) : (
-            <div className="space-y-10 pb-10">
+            <div className="space-y-6">
               {events.map((item) => (
-                <div key={item.id}>
-                  <section className="flex flex-col md:flex-row items-center gap-8 bg-white p-6 rounded-xl shadow">
-                    <div className="md:w-1/2 w-full">
-                      <img
-                        className="rounded w-full"
-                        src={item.banner_url || "https://via.placeholder.com/600x300"}
-                        alt="event"
-                      />
+                <section key={item.id} className="flex flex-col md:flex-row gap-6 bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition">
+                  <div className="md:w-2/5 aspect-video md:aspect-auto md:h-48 bg-gray-100">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={item.banner_url || "https://via.placeholder.com/600x300"}
+                      alt={item.eventname}
+                    />
+                  </div>
+                  <div className="md:w-3/5 p-6 flex flex-col justify-center">
+                    <h2 className="text-xl font-semibold text-gray-900">{item.eventname}</h2>
+                    <p className="text-gray-500 text-sm mt-1 line-clamp-2">{item.description}</p>
+                    <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
+                      <span className="flex items-center gap-1"><MdOutlinePlace size={16} />{item.type}</span>
+                      <span className="flex items-center gap-1"><IoIosPeople size={16} />{item.audience}</span>
                     </div>
-
-                    <div className="md:w-1/2 w-full flex flex-col">
-                      <h2 className="text-3xl font-bold">{item.eventname}</h2>
-
-                      <p className="my-4 text-gray-600">{item.description}</p>
-
-                      <div className="flex items-center gap-2">
-                        <MdOutlinePlace size={22} />
-                        <p>{item.type}</p>
-                      </div>
-
-                      <div className="flex items-center gap-2 mt-2">
-                        <IoIosPeople size={22} />
-                        <p>{item.audience}</p>
-                      </div>
-
-                      <div className="mt-6 flex gap-3">
-                        {/* Existing View Event button */}
-                        <button
-                          className="bg-pink-600 text-white px-6 py-2 rounded w-fit"
-                          onClick={() => navigate(`/events/${item.id}`)}
-                        >
-                          View Event
-                        </button>
-
-                        {/* ✅ New View Stats button */}
-                        <button
-                          className="bg-blue-600 text-white px-6 py-2 rounded w-fit"
-                          onClick={() => navigate(`/events/${item.id}/stats`)}
-                        >
-                          View Stats
-                        </button>
-                      </div>
+                    <div className="mt-4 flex gap-3">
+                      <button
+                        className="bg-[#f02e65] hover:bg-[#d91e52] text-white px-4 py-2 rounded-xl font-medium text-sm transition"
+                        onClick={() => navigate(`/events/${item.id}`)}
+                      >
+                        View event
+                      </button>
+                      <button
+                        className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-xl font-medium text-sm transition"
+                        onClick={() => navigate(`/events/${item.id}/stats`)}
+                      >
+                        View stats
+                      </button>
                     </div>
-                  </section>
-                </div>
+                  </div>
+                </section>
               ))}
             </div>
           )}
