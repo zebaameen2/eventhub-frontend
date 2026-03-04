@@ -76,7 +76,7 @@ export default function Header({ eventId, showViewStats }) {
           <Link className="py-2.5 px-4 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition" to="/myevents">My Events</Link>
           <Link className="py-2.5 px-4 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition" to="/events">Find Events</Link>
           <Link className="py-2.5 px-4 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition" to="/create">Create Event</Link>
-          <Link className="py-2.5 px-4 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition" to="/product-viewer">Product Viewer</Link>
+          {/* <Link className="py-2.5 px-4 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition" to="/product-viewer">Product Viewer</Link> */}
           {eventId && showViewStats && (
             <Link to={`/events/${eventId}/stats`} className="py-2.5 px-4 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition">View Stats</Link>
           )}

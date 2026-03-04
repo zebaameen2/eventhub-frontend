@@ -41,7 +41,7 @@ export default function Dashboard() {
     <>
       {/* <Header /> */}
       <Header eventId={eventId} handleSignOut={handleSignOut} />
-      <ThreeBackground />
+  
 
       {/* Fixed top-right profile button and responsive content offset */}
       <div className="fixed top-4 right-4 z-40 md:hidden">
